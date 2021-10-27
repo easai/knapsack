@@ -29,9 +29,9 @@ class item():
             value (int): the value of the object
             label (str): the label of the object
         """
-        self.weight = w
-        self.value = val
-        self.label = lbl
+        self.weight = weight
+        self.value = value
+        self.label = label
 
     def getValue(self):
         """Return the value of the object.
