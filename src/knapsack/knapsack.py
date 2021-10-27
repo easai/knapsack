@@ -1,4 +1,4 @@
-"""An implementation of Knapsack problem
+"""An implementation of Knapsack problem solver
 
 This is knapsack.py
 """
@@ -58,7 +58,8 @@ class item():
 class knapsack():
     """Class for list of items
 
-    This class represents a list of item class. The packing algorithms should be implmented as methods of this class.
+    This class represents a list of item class.
+    The packing algorithms should be implmented as methods of this class.
 
     Attributes:
         itemlist (list): the list of items
