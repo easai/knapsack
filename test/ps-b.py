@@ -1,46 +1,43 @@
 from knapsack import *
 
 
-clock=item(10,175,'clock')
-picture=item(9,90,'picture')
-radio=item(4, 20,'radio')
-vase=item(2,50,'vase')
-book=item(1,10,'book')
-computer=item(20,200,'computer')
+clock = item(10, 175, 'clock')
+picture = item(9, 90, 'picture')
+radio = item(4, 20, 'radio')
+vase = item(2, 50, 'vase')
+book = item(1, 10, 'book')
+computer = item(20, 200, 'computer')
 
-lst=[clock, picture, radio, vase, book, computer]
-k=knapsack(lst)
+lst = [clock, picture, radio, vase, book, computer]
+k = knapsack(lst)
 print("items in the knapsack")
 k.dump()
 print()
 
 print("--- [Max value]")
 k.setList(lst)
-k.run(metric3, 20)
+k.run(maxValue, 20)
 print()
-std=k.sort(metric3)
-res=knapsack(std)
+std = k.sort(maxValue)
+res = knapsack(std)
 res.dump()
 print()
 
 print("--- [Min weight]")
 k.setList(lst)
-k.run(metric2, 20)
+k.run(minWeight, 20)
 print()
-std=k.sort(metric2)
-res=knapsack(std)
+std = k.sort(minWeight)
+res = knapsack(std)
 res.dump()
 print()
 
 
 print("--- [value/weight]")
 k.setList(lst)
-k.run(metric1, 20)
+k.run(ratio, 20)
 print()
-std=k.sort(metric1)
-res=knapsack(std)
+std = k.sort(ratio)
+res = knapsack(std)
 res.dump()
 print()
-
-
-
