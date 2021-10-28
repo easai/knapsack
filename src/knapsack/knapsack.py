@@ -115,42 +115,42 @@ class knapsack():
             item.dump()
             lst.remove(item)
 
+    @staticmethod
+    def ratio(item):
+        """Return value/weight ratio.
 
-def ratio(item):
-    """Return value/weight ratio.
-
-    Args:
-        item (item): the item class object
-    """
-    v = item.getValue()
-    if item.getWeight() != 0:
-        res = v / item.getWeight()
-    else:
-        if v < 0:
-            res = -math.inf
-        elif v == 0:
-            res = 0
+        Args:
+            item (item): the item class object
+        """
+        v = item.getValue()
+        if item.getWeight() != 0:
+            res = v / item.getWeight()
         else:
-            res = math.inf
-    return res
+            if v < 0:
+                res = -math.inf
+            elif v == 0:
+                res = 0
+            else:
+                res = math.inf
+        return res
 
+    @staticmethod
+    def minWeight(item):
+        """Return the -weight (-1 x weight) of the item class object.
 
-def minWeight(item):
-    """Return the -weight (-1 x weight) of the item class object.
+        Args:
+            item (item): the item class object
+        """
+        return -item.getWeight()
 
-    Args:
-        item (item): the item class object
-    """
-    return -item.getWeight()
+    @staticmethod
+    def maxValue(item):
+        """Return the value of the item class object.
 
-
-def maxValue(item):
-    """Return the value of the item class object.
-
-    Args:
-        item (item): the item class object
-    """
-    return item.getValue()
+        Args:
+            item (item): the item class object
+        """
+        return item.getValue()
 
 
 def getMax(lst, f):
