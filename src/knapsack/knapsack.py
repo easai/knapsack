@@ -81,6 +81,14 @@ class knapsack():
         """
         self.itemlist = lst
 
+    def getList(self):
+        """Get the itemlist.
+
+        Returns:
+            itemlist (list): a list of items
+        """
+        return self.itemlist
+
     def dump(self):
         """Print each object.
         """
