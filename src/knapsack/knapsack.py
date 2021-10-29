@@ -6,7 +6,7 @@ import math
 import copy
 
 
-class item():
+class Item():
     """Class for an object.
 
     This is a class for an object that will be packed into the knapsack.
@@ -33,7 +33,7 @@ class item():
         self.value = value
         self.label = label
 
-    def getValue(self):
+    def get_value(self):
         """Return the value of the object.
 
         Returns:
@@ -41,7 +41,7 @@ class item():
         """
         return self.value
 
-    def getWeight(self):
+    def get_weight(self):
         """Return the weight of the object.
 
         Returns:
@@ -56,36 +56,36 @@ class item():
 
 
 class knapsack():
-    """Class for list of items
+    """Class for list of Item objects
 
     This class represents a list of item class.
     The packing algorithms should be implmented as methods of this class.
 
     Attributes:
-        itemlist (list): the list of items
+        itemlist (list): the list of Item objects
     """
 
     def __init__(self, itemlist):
         """Constructor.
 
         Args:
-            itemlist (list): a list of items
+            itemlist (list): a list of Item objects
         """
         self.itemlist = itemlist
 
-    def setList(self, lst):
+    def set_list(self, lst):
         """Set the itemlist.
 
         Args:
-            itemlist (list): a list of items
+            itemlist (list): a list of Item objects
         """
         self.itemlist = lst
 
-    def getList(self):
+    def get_list(self):
         """Get the itemlist.
 
         Returns:
-            itemlist (list): a list of items
+            itemlist (list): a list of Item objects
         """
         return self.itemlist
 
@@ -116,8 +116,8 @@ class knapsack():
         totalWeight = 0
         lst = copy.copy(self.itemlist)
         while lst and totalWeight < maxWeight:
-            item = getMax(lst, f)
-            totalWeight += item.getWeight()
+            item = get_max(lst, f)
+            totalWeight += item.get_weight()
             if 14 < totalWeight:
                 break
             item.dump()
@@ -130,9 +130,9 @@ class knapsack():
         Args:
             item (item): the item class object
         """
-        v = item.getValue()
-        if item.getWeight() != 0:
-            res = v / item.getWeight()
+        v = item.get_value()
+        if item.get_weight() != 0:
+            res = v / item.get_weight()
         else:
             if v < 0:
                 res = -math.inf
@@ -143,25 +143,25 @@ class knapsack():
         return res
 
     @staticmethod
-    def minWeight(item):
+    def min_weight(item):
         """Return the -weight (-1 x weight) of the item class object.
 
         Args:
             item (item): the item class object
         """
-        return -item.getWeight()
+        return -item.get_weight()
 
     @staticmethod
-    def maxValue(item):
+    def max_value(item):
         """Return the value of the item class object.
 
         Args:
             item (item): the item class object
         """
-        return item.getValue()
+        return item.get_value()
 
 
-def getMax(lst, f):
+def get_max(lst, f):
     """Return the max item class object by the specified function.
 
     Args:
