@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.insert(0, 'C:\\prog-py\\knapsack\\src\\knapsack')
+sys.path.insert(0, '../src/knapsack')
 
 
 # -- Project information -----------------------------------------------------
