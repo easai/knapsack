@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>knapsack &mdash; knapsack  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> knapsack
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../knapsack.html">knapsack module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">knapsack</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      <li>knapsack</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for knapsack</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;An implementation of Knapsack problem solver</span>
+
+<span class="sd">This is knapsack.py</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+
+<div class="viewcode-block" id="item"><a class="viewcode-back" href="../knapsack.html#knapsack.item">[docs]</a><span class="k">class</span> <span class="nc">item</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Class for an object.</span>
+
+<span class="sd">    This is a class for an object that will be packed into the knapsack.</span>
+<span class="sd">    An object has a label that identify the object,</span>
+<span class="sd">    weight the total of which limits the capacity of the knapsack,</span>
+<span class="sd">    value the total of which should be maximized.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        weight (int): the weight of the object</span>
+<span class="sd">        value (int): the value of the object</span>
+<span class="sd">        label (str): the label of the object</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            weight (int): the weight of the object</span>
+<span class="sd">            value (int): the value of the object</span>
+<span class="sd">            label (str): the label of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+
+<div class="viewcode-block" id="item.getValue"><a class="viewcode-back" href="../knapsack.html#knapsack.item.getValue">[docs]</a>    <span class="k">def</span> <span class="nf">getValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the value of the object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the value of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div>
+
+<div class="viewcode-block" id="item.getWeight"><a class="viewcode-back" href="../knapsack.html#knapsack.item.getWeight">[docs]</a>    <span class="k">def</span> <span class="nf">getWeight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the weight of the object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: the weight of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span></div>
+
+<div class="viewcode-block" id="item.dump"><a class="viewcode-back" href="../knapsack.html#knapsack.item.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print the label, weight, and value of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s2">] w=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="si">}</span><span class="s2"> val=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="knapsack"><a class="viewcode-back" href="../knapsack.html#knapsack.knapsack">[docs]</a><span class="k">class</span> <span class="nc">knapsack</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Class for list of items</span>
+
+<span class="sd">    This class represents a list of item class.</span>
+<span class="sd">    The packing algorithms should be implmented as methods of this class.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        itemlist (list): the list of items</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">itemlist</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            itemlist (list): a list of items</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span> <span class="o">=</span> <span class="n">itemlist</span>
+
+<div class="viewcode-block" id="knapsack.setList"><a class="viewcode-back" href="../knapsack.html#knapsack.knapsack.setList">[docs]</a>    <span class="k">def</span> <span class="nf">setList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lst</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the itemlist.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            itemlist (list): a list of items</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span> <span class="o">=</span> <span class="n">lst</span></div>
+
+<div class="viewcode-block" id="knapsack.getList"><a class="viewcode-back" href="../knapsack.html#knapsack.knapsack.getList">[docs]</a>    <span class="k">def</span> <span class="nf">getList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the itemlist.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            itemlist (list): a list of items</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span></div>
+
+<div class="viewcode-block" id="knapsack.dump"><a class="viewcode-back" href="../knapsack.html#knapsack.knapsack.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print each object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span><span class="p">:</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="knapsack.sort"><a class="viewcode-back" href="../knapsack.html#knapsack.knapsack.sort">[docs]</a>    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sort the list in the order specified function.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            f (function): the key function for sorting</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: the sorted list of items</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="knapsack.run"><a class="viewcode-back" href="../knapsack.html#knapsack.knapsack.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">maxWeight</span><span class="o">=</span><span class="mi">14</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print the packed items sorted by the specified functions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            f (function): this is the function whose return value ranks the order of selection</span>
+<span class="sd">            maxWeight (:obj:`int`, optional): maximum capacity of the knapsack</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">totalWeight</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">lst</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">lst</span> <span class="ow">and</span> <span class="n">totalWeight</span> <span class="o">&lt;</span> <span class="n">maxWeight</span><span class="p">:</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">getMax</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="n">totalWeight</span> <span class="o">+=</span> <span class="n">item</span><span class="o">.</span><span class="n">getWeight</span><span class="p">()</span>
+            <span class="k">if</span> <span class="mi">14</span> <span class="o">&lt;</span> <span class="n">totalWeight</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+            <span class="n">lst</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="knapsack.ratio"><a class="viewcode-back" href="../knapsack.html#knapsack.knapsack.ratio">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">ratio</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return value/weight ratio.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            item (item): the item class object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">getWeight</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">v</span> <span class="o">/</span> <span class="n">item</span><span class="o">.</span><span class="n">getWeight</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span>
+            <span class="k">elif</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="knapsack.minWeight"><a class="viewcode-back" href="../knapsack.html#knapsack.knapsack.minWeight">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">minWeight</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the -weight (-1 x weight) of the item class object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            item (item): the item class object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">item</span><span class="o">.</span><span class="n">getWeight</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="knapsack.maxValue"><a class="viewcode-back" href="../knapsack.html#knapsack.knapsack.maxValue">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">maxValue</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the value of the item class object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            item (item): the item class object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="getMax"><a class="viewcode-back" href="../knapsack.html#knapsack.getMax">[docs]</a><span class="k">def</span> <span class="nf">getMax</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the max item class object by the specified function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lst (list): the list of item</span>
+<span class="sd">        f (function): the function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">lst</span><span class="p">:</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">item</span>
+    <span class="k">return</span> <span class="n">res</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, easai.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
